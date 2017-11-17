@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>js-第三节课</title>
+		<meta name="Keywords" content="">
+		<meta name="Description" content=""> 
+	</head>
+	<style>
+		html,body,div,ul,li {
+			padding: 0;
+			margin: 0;
+		}
+		ul {
+			list-style: none;
+		}
+		/* 变换的盒子 开始 */
+		.box {
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+		}
+		/* 变换的盒子 结束 */
+
+		/* 遮罩层 开始*/
+		#cover {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			z-index: -1;
+		}
+		.change_cover {
+			background-color: #000;
+			opacity: 0.5;
+		}
+		/* 遮罩层 结束 */
+
+		/* 修改盒子样式 开始 */
+		.change_box {
+			width: 400px;
+			height: 198px;
+			background-color: #fff;
+			position: absolute;
+			top: 400px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 4;
+			display: none;
+		}
+		.header,
+		.change_color,
+		.change_width,
+		.change_height {
+			float: left;
+			padding-top: 10px;
+		}
+		.header {
+			width: 80px;
+			height: 50px;
+		}
+		.change_color,
+		.change_width,
+		.change_height {
+			width: 310px;
+			height: 50px;
+		}
+		.change_box .change_color ul li,
+		.change_box .change_width ul li,
+		.change_box .change_height ul li {
+			width: 90px;
+			height: 40px;
+			float: left;
+			margin-left: 5px;
+			display: inline-block;
+		}
+		.change_box .change_color ul li:hover {
+			cursor: pointer;
+		}
+		.change_box .change_width ul li,
+		.change_box .change_height ul li {
+			text-align: center;
+			cursor: pointer;
+		}
+		.change_box .change_width ul li:hover,
+		.change_box .change_height ul li:hover {
+			color: #fc3;
+		}
+		.confirm {
+			position: relative;
+			padding-top: 180px;
+			z-index: -1;
+		}
+		#con_btn {
+			background-color: #ff9900;
+			color: #fff;
+			border: 0;
+			outline: 0;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		/* 修改盒子样式 结束 */
+
+	</style>
+	<body>
+		<!-- 变换的盒子 开始-->
+		<div class="box"></div>
+		<!-- 变换的盒子 结束-->
+		<button id="bt">click</button>
+		
+		<div id="cover"></div>
+
+		<!-- 修改盒子样式 开始 -->
+		<div class="change_box">
+			<div class="header">背景：</div>
+			<div class="change_color">
+				<ul>
+					<li style="background-color:red"></li>
+					<li style="background-color:green"></li>
+					<li style="background-color:blue"></li>
+				</ul>
+			</div>
+			<div class="header">宽度：</div>
+			<div class="change_width">
+				<ul>
+					<li>100px</li>
+					<li>200px</li>
+					<li>300px</li>
+				</ul>
+			</div>
+			<div class="header">高度：</div>
+			<div class="change_height">
+				<ul>
+					<li>100px</li>
+					<li>200px</li>
+					<li>300px</li>
+				</ul>
+			</div>
+			<div class="confirm">
+				<button id="con_btn">完成</button>
+			</div>
+		</div>
+		<!-- 修改盒子样式 结束 -->
+		<script>
+			/* 修改盒子样式 开始 */
+			var box = document.getElementsByClassName("box")[0];
+			var changeBox = document.getElementsByClassName("change_box")[0];
+			/* 遮罩层 开始*/
+			var cover = document.getElementById("cover");
+			var bt = document.getElementById("bt");
+			bt.onclick = function() {
+				cover.className = "change_cover";
+				cover.style.zIndex = "2";
+				changeBox.style.display = "block";
+
+			}
+			/* 遮罩层 结束 */
+			/* 改变颜色 开始 */
+			var changeColor = document.getElementsByClassName("change_color")[0];
+			var changeColorUl = changeColor.getElementsByTagName("ul")[0];
+			var changeColorLi = changeColor.getElementsByTagName("li");
+			for(var i=0; i<changeColorLi.length; i++) {
+				changeColorLi[i].onclick = function() {
+					box.style.backgroundColor = this.style.backgroundColor;
+				}
+			}
+			/* 改变颜色 结束 */
+			/* 改变宽度 开始 */
+			var changeWidth = document.getElementsByClassName("change_width")[0];
+			var changeWidthUl = changeWidth.getElementsByTagName("ul")[0];
+			var changeWidthLi = changeWidth.getElementsByTagName("li");
+			for(var j=0; j<changeWidthLi.length; j++) {
+				changeWidthLi[j].onclick = function() {
+					box.style.width = this.innerHTML;
+				}
+			}
+			/* 改变宽度 结束 */
+			/* 改变高度 开始 */
+			var changeHeight = document.getElementsByClassName("change_height")[0];
+			var changeHeightUl = changeHeight.getElementsByTagName("ul")[0];
+			var changeHeightLi = changeHeight.getElementsByTagName("li");
+			for(var j=0; j<changeHeightLi.length; j++) {
+				changeHeightLi[j].onclick = function() {
+					box.style.height = this.innerHTML;
+				}
+			}
+			/* 改变高度 结束 */
+
+			var conBtn = document.getElementById("con_btn");
+			/* 完成修改 开始*/
+			conBtn.onclick = function() {
+				cover.className = "";
+				cover.style.zIndex = "-1";
+				changeBox.style.display = "none";
+			}
+			/* 完成修改 结束 */
+			/* 修改盒子样式 结束 */
+		</script>
+	</body>
+</html>
