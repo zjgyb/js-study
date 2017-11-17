@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>js-4作业</title>
+		<meta name="Keywords" content="">
+		<meta name="Description" content=""> 
+		<style>
+			html,body,div,ul,li,a {
+				padding: 0;
+				margin: 0;
+			}
+			ul {
+				list-style: none;
+			}
+			/* 图片切换 开始 */
+			#banner {
+				width: 500px;
+				height: 360px;
+				position: relative;
+				margin: 300px auto 0;
+				border: 1px solid red;
+			}
+			#banner ul li {
+				position: absolute;
+				display: none;
+			}
+			#prev,
+			#next {
+				width: 50px;
+				height: 100px;
+				background-color: #eee;
+				position: absolute;
+				top: 50%;
+				margin-top: -50px;
+			}
+			#next {
+				right: 0;
+			}
+			#prev span,
+			#next span {
+				color: #fff;
+				font-size: 55px;
+				font-weight: bold;
+				display: inline-block;
+				padding-top: 10px;
+				cursor: pointer;
+			}
+			#next span {
+				padding-left: 5px;
+			}
+			/* 图片切换 结束 */
+
+		</style>
+
+	</head>
+	<body>
+		<div id="banner">
+			<ul>
+				<li><a href="#"><img src="images/11.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/12.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/13.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/14.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/15.jpg" alt="foods" width="500" height="360"></a></li>
+			</ul>
+			<div id="prev"><span>&lt;</span></div>
+			<div id="next"><span>&gt;</span></div>
+		</div>
+	<script>
+		var prev = document.getElementById("prev");
+		var next = document.getElementById("next");
+		var banner = document.getElementById("banner");
+		var oLi = banner.getElementsByTagName("li");
+		var i = 0;
+		oLi[0].style.display = "block";
+		prev.onclick = function() {
+			oLi[i].style.display = "none";
+			i--;
+			if(i<0) {
+				i = 4;
+			}
+			oLi[i].style.display = "block";
+		}
+		next.onclick = function() {
+			oLi[i].style.display = "none";
+			i++;
+			if(i>=oLi.length) {
+				i = 0;
+			}
+			oLi[i].style.display = "block";
+		}
+	</script>
+	</body>
+</html>
