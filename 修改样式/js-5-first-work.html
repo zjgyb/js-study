@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>js-4作业</title>
+		<meta name="Keywords" content="">
+		<meta name="Description" content=""> 
+		<style>
+			html,body,div,ul,li,a {
+				padding: 0;
+				margin: 0;
+			}
+			ul {
+				list-style: none;
+			}
+			/* 图片切换 开始 */
+			#banner {
+				width: 500px;
+				height: 360px;
+				position: relative;
+				margin: 300px auto 0;
+				border: 1px solid red;
+			}
+			#banner ul li {
+				position: absolute;
+				display: none;
+			}
+			#prev,
+			#next {
+				width: 50px;
+				height: 100px;
+				background-color: #eee;
+				position: absolute;
+				top: 50%;
+				margin-top: -50px;
+			}
+			#next {
+				right: 0;
+			}
+			#prev span,
+			#next span {
+				color: #fff;
+				font-size: 55px;
+				font-weight: bold;
+				display: inline-block;
+				padding-top: 10px;
+				cursor: pointer;
+			}
+			#next span {
+				padding-left: 5px;
+			}
+			/* 小圆点图片切换 开始 */
+			#tab {
+				width: 145px;
+				height: 20px;
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			#tab span {
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+				display: inline-block;
+				background-color: #bbb;
+				position: relative;
+				margin: 0 5px;
+				cursor: pointer;
+			}
+			/* 小圆点图片切换 结束 */
+			/* 图片切换 结束 */
+
+		</style>
+
+	</head>
+	<body>
+		<div id="banner">
+			<ul>
+				<li><a href="#"><img src="images/11.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/12.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/13.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/14.jpg" alt="foods" width="500" height="360"></a></li>
+				<li><a href="#"><img src="images/15.jpg" alt="foods" width="500" height="360"></a></li>
+			</ul>
+			<div id="prev"><span>&lt;</span></div>
+			<div id="next"><span>&gt;</span></div>
+			<div id="tab">	
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	<script>
+		var prev = document.getElementById("prev");
+		var next = document.getElementById("next");
+		var banner = document.getElementById("banner");
+		var oLi = banner.getElementsByTagName("li");
+		var oTab = document.getElementById("tab");
+		var oSpan = oTab.getElementsByTagName("span");
+		var n = 0;
+
+		oLi[0].style.display = "block";
+		oSpan[0].style.background = "#f90";
+		prev.onclick = function() {
+			oLi[n].style.display = "none";
+			oSpan[n].style.background = "#bbb";
+			n--;
+			if(n<0) {
+				n = 4;
+			}
+			oLi[n].style.display = "block";
+			oSpan[n].style.background = "#f90";
+		}
+		next.onclick = function() {
+			oLi[n].style.display = "none";
+			oSpan[n].style.background = "#bbb";
+			n++;
+			if(n>=oLi.length) {
+				n = 0;
+			}
+			oLi[n].style.display = "block";
+			oSpan[n].style.background = "#f90";
+		}
+		for(var i=0; i<oLi.length; i++) {
+			oSpan[i].index = i;
+			oSpan[i].onclick = function() {
+				oSpan[n].style.background = "#bbb";
+				oLi[n].style.display = "none";
+				n = this.index;	
+				this.style.background = "#f90";
+				oLi[n].style.display = "block";
+			}
+		}
+	</script>
+	</body>
+</html>
