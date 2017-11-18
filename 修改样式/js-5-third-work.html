@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>js-5-third-work</title>
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<style>
+			html,body,div,ul,li,a {
+				padding: 0;
+				margin: 0;
+			}
+			ul {
+				list-style: none;
+			}
+			a {
+				text-decoration: none;
+			}
+			/* 二级导航 开始 */
+			#box {
+				width: 1200px;
+				height: 489px;
+				margin: 100px auto 0;
+				position: relative;
+			}
+			div#box #nav {
+				width: 225px;
+				height: 489px;
+				background-color: #434649;
+				opacity: 0.9;
+			}	
+			#nav>ul {
+				padding: 11px 0;
+			}
+			#nav>ul>li {
+				height: 36px;
+				cursor: pointer;
+				line-height: 36px;
+			}
+			#nav>ul>li>a {
+				font-family: "微软雅黑";
+				display: inline-block;
+				width: 190px;
+				padding-left: 35px;
+				color: #fff;
+				font-weight: bold;
+			}
+			#nav>ul>li>a:hover {
+				background-color: rgba(255,255,255,0.2);
+			}
+			.nav_content {
+				width: 398px;
+				height: 489px;
+				background: #eee;
+				position: absolute;
+				left: 225px;
+				top: 0;
+				display: none;
+			}
+			#nav>ul>li:hover .nav_content {
+				display: block;
+			}
+			.nav_con_width1 {
+				width: 200px;
+			}
+			.nav_con_width4 {
+				width: 794px;
+			}
+			.nav_content ul {
+				padding: 20px 0;
+			}
+			.nav_content ul li{
+				width: 50%;
+				display: inline-block;
+				float: left;
+			}
+			.nav_content ul li a {
+				width: 149px;
+				display: inline-block;
+				color: #000;
+				padding-left: 50px;
+				transition: all .5s ease;
+			}
+			.nav_con_width1 ul li {
+				width: 100%;
+			}
+			.nav_con_width4 ul li {
+				width: 25%;
+			}
+			.nav_content ul li a:hover {	
+				color: #d53d3d;
+			}
+			/* 二级导航 结束 */
+		</style>
+	</head>
+	<body>
+		<!-- 二级导航 开始 -->
+		<div id="box">
+			<div id="nav">
+				<ul>
+					<li>
+						<a href="#">视觉设计</a>
+						<div class="nav_content">
+							<ul>
+								<li><a href="#">平面设计</a></li>
+								<li><a href="#">插画</a></li>
+								<li><a href="#">网页设计</a></li>
+								<li><a href="#">电商设计</a></li>
+								<li><a href="#">UI设计</a></li>
+								<li><a href="#">影视包装</a></li>
+								<li><a href="#">美妆</a></li>
+								<li><a href="#">形象设计</a></li>
+								<li><a href="#">摄影后期</a></li>
+								<li><a href="#">影视剪辑</a></li>
+								<li><a href="#">杨柳化妆学校</a></li>
+								<li><a href="#">长沙金淘</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#">软件硬件</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">营销培训</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">工业设计</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">游戏动漫</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">电商培训</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">语言学习</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">室内设计</a>
+						<div class="nav_content">			
+						</div>
+					</li>
+					<li>
+						<a href="#">职场人文</a>
+						<div class="nav_content nav_con_width4">			
+						</div>
+					</li>
+					<li>
+						<a href="#">艺术创作</a>
+						<div class="nav_content">
+							<ul>
+								<li><a href="#">服装设计</a></li>
+								<li><a href="#">播音主持</a></li>
+								<li><a href="#">彩铅</a></li>
+								<li><a href="#">书法</a></li>
+								<li><a href="#">国画</a></li>
+								<li><a href="#">串珠</a></li>
+								<li><a href="#">纸膜</a></li>
+								<li><a href="#">插花</a></li>
+								<li><a href="#">发饰</a></li>
+								<li><a href="#">素描</a></li>
+								<li><a href="#">油画</a></li>
+								<li><a href="#">雕塑</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#">健康生活</a>
+						<div class="nav_content nav_con_width1">
+							<ul>
+								<li><a href="#">早教</a></li>
+								<li><a href="#">森林里的儿童</a></li>
+								<li><a href="#">喜剧中心</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#">农业种植</a>
+						<div class="nav_content nav_con_width1">
+							<ul>
+								<li><a href="#">葡萄种植</a></li>
+								<li><a href="#">蔬菜种植</a></li>
+								<li><a href="#">养殖</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#">升学考研</a>
+						<div class="nav_content">
+							<ul>
+								<li><a href="#">1学校</a></li>
+								<li><a href="#">2学校</a></li>
+								<li><a href="#">3学校</a></li>
+								<li><a href="#">4学校</a></li>
+								<li><a href="#">5学校</a></li>
+								<li><a href="#">6学校</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 二级导航 结束 -->
+	</body>
+</html>
