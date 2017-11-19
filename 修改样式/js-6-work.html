@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>js-6-work</title>
+		<meta name="Keywords" content="">
+		<meta name="Description" content=""> 
+		<style>
+			html,body,div,input,ul,li {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul {
+				list-style: none;
+			}
+			.box {
+				width: 400px;
+				height: 400px;
+				border: 1px solid #000;
+				margin: 100px auto 0;
+			}
+			input {
+				width: 380px;
+				height: 50px;
+				display: block;
+				margin: 10px auto 0;
+				font-size: 25px;
+				text-align: right;
+			}
+			.box ul {
+				padding: 80px 10px 0;
+				position: relative;
+			}
+			.box ul li {
+				width: 80px;
+				height: 50px;
+				display: inline-block;
+				background-color: #eee;
+				border: 1px solid #000;
+				margin: 5px 5px;
+				text-align: center;
+				line-height: 50px;
+				cursor: pointer;
+				font-size: 20px;
+				font-weight: bold;
+				font-family: "微软雅黑";
+			}
+			.box ul li:first-child {
+				display: block;
+				position: absolute;
+				right: 14px;
+				top: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<input type="text" value="0" id="text">
+			<ul>
+				<li>c</li>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li class="tool">+</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li class="tool">-</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+				<li class="tool">*</li>
+				<li>0</li>
+				<li>.</li>
+				<li class="tool">=</li>
+				<li class="tool">/</li>
+			</ul>
+		</div>
+		<script>
+			var oText = document.getElementById("text");
+			var oLi = document.getElementsByTagName("li");
+			var show = "";
+			var oval = ""; //运算符左边;
+			var tval = ""; //运算符右边
+			var sval = []; //存贮运算符
+			var eval;
+			oLi[0].onclick = function() {
+				oval = "";
+				tval = "";
+				sval[0] = "";
+				eval = "";
+				show = "";
+				oText.value = "0";
+			}
+			for(var i=1; i<oLi.length; i++) {
+				oLi[i].onclick = function() {
+					show += this.innerHTML;
+					if(!isNaN(show)) {
+						oval = show;	
+					} else {
+						if(this.className!="tool") {
+							tval += this.innerHTML;
+						} else {
+							sval[0] = this.innerHTML;
+						}
+					}
+					oText.value = show;
+				} 
+			}
+			oLi[15].onclick = function() {
+				switch (sval[0])
+					{
+						case "+": eval = Number(oval) + Number(tval);
+								break;
+						case "-": eval = Number(oval) - Number(tval);
+								break;
+						case "*": eval = Number(oval) * Number(tval);
+								break;
+						case "/": eval = Number(oval) / Number(tval);
+								break;
+					}	
+				oText.value = eval;
+				show = eval;
+				tval = "";	//右边数字变量清空
+				oval = eval;
+				sval[0] = "";
+			}
+		</script>
+	</body>
+</html>
