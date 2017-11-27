@@ -92,60 +92,63 @@
 	</div>
 	<script type="text/javascript" src="js/move.js"></script>
     <script type="text/javascript">
-    	var oBanner = document.getElementById("banner");
-    	var oPic = document.getElementById("pic");
-		var oSpan = document.getElementById("tab").getElementsByTagName("span");
-		var prev = document.getElementById("prev");
-		var next = document.getElementById("next");
-		var index = 0;
-		var time = 0;
-		var timer;
-		banner();
-
-		function banner() {
-			timer = setInterval(nextImg, 3000);
-		}
-		oBanner.onmouseenter = function() {
-			clearInterval(timer);
-		}
-		oBanner.onmouseleave = function() {
+    	(function(){
+    		var oBanner = document.getElementById("banner");
+	    	var oPic = document.getElementById("pic");
+			var oSpan = document.getElementById("tab").getElementsByTagName("span");
+			var prev = document.getElementById("prev");
+			var next = document.getElementById("next");
+			var index = 0;
+			var time = 0;
+			var timer;
 			banner();
-		}
-		function sameElement() {
-			move(oPic, {
-					marginLeft: -520 * index
-				}, 300);
-			oSpan[index].className = "on";
-		}
-		function nextImg() {
-			var nowTime = new Date();
-			if(nowTime - time > 300) {
+
+			function banner() {
+				timer = setInterval(nextImg, 3000);
+			}
+			oBanner.onmouseenter = function() {
+				clearInterval(timer);
+			}
+			oBanner.onmouseleave = function() {
+				banner();
+			}
+			function sameElement() {
+				move(oPic, {
+						marginLeft: -520 * index
+					}, 300);
+				oSpan[index].className = "on";
+			}
+			function nextImg() {
+				var nowTime = new Date();
+				if(nowTime - time > 300) {
+					time = new Date();
+					oSpan[index].className = "";
+					index++;
+					index %= oSpan.length;
+					sameElement();
+				}
+			}
+			function prevImg() {
+				var nowTime = new Date();
 				time = new Date();
-				oSpan[index].className = "";
-				index++;
-				index %= oSpan.length;
-				sameElement();
+				if(nowTime - time > 300) {
+					oSpan[index].className = "";
+					index = index<=0?oSpan.length -1:--index;
+					sameElement();
+				}
 			}
-		}
-		function prevImg() {
-			var nowTime = new Date();
-			time = new Date();
-			if(nowTime - time > 300) {
-				oSpan[index].className = "";
-				index = index<=0?oSpan.length -1:--index;
-				sameElement();
-			}
-		}
-		for(var i = 0; i < oSpan.length; i++) {
-			oSpan[i].i = i;
-			oSpan[i].onclick = function() {
-				oSpan[index].className = "";
-				index = this.i;
-				sameElement();
-			}
-		}  	
-		next.onclick = nextImg;
-		prev.onclick = prevImg;
+			for(var i = 0; i < oSpan.length; i++) {
+				oSpan[i].i = i;
+				oSpan[i].onclick = function() {
+					oSpan[index].className = "";
+					index = this.i;
+					sameElement();
+				}
+			}  	
+			next.onclick = nextImg;
+			prev.onclick = prevImg;
+    	})();
+    	
     </script>
 </body>
 </html>
