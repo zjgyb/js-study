@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Examples</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<style type="text/css">
+			
+		* { padding: 0; margin: 0; }
+
+		#banner {
+			width: 520px;
+			height: 280px;
+			margin: 100px auto;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#pic {
+			width: 500%;
+			position: relative;
+		}
+
+		#pic img{
+			float: left;
+		}
+
+		div#prev,
+		div#next {
+			width: 30px;
+			height: 40px;
+			background-color: #999;
+			position: absolute;
+			top: 50%;
+			margin-top: -20px;
+			font-size: 30px;
+			font-weight: bold;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		#next {
+			right: 0;
+		}
+
+		#tab {
+			width: 70px;
+			height: 13px;
+			position: absolute;
+			background-color: #eee;
+			left: 50%;
+			transform: translateX(-50%);
+			bottom: 10px;
+			border-radius: 7px;
+		}
+
+		#tab span {
+			width: 8px;
+			height: 8px;
+			display: inline-block;
+			background-color: #fff;
+			border-radius: 50%;
+			margin: 2px 3px;
+			float: left;
+			cursor: pointer;
+		}
+		#tab span.on {
+			background-color: #ff5000;
+		}
+		</style>
+	</head>
+<body>
+	<div id="banner">
+		<div id="pic">
+			<img src="images/t1.webp" alt="" width="520" height="280" >
+			<img src="images/t2.jpg" alt="" width="520" height="280" >
+			<img src="images/t3.jpg" alt="" width="520" height="280" >
+			<img src="images/t4.png" alt="" width="520" height="280" >
+			<img src="images/t5.webp" alt="" width="520" height="280" >
+		</div>
+		<div id="prev">&lt;</div>
+		<div id="next">&gt;</div>
+		<div id="tab">
+			<span class="on"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/move.js"></script>
+    <script type="text/javascript">
+    	var oBanner = document.getElementById("banner");
+    	var oPic = document.getElementById("pic");
+		var oSpan = document.getElementById("tab").getElementsByTagName("span");
+		var prev = document.getElementById("prev");
+		var next = document.getElementById("next");
+		var index = 0;
+		var time = 0;
+		var timer;
+		banner();
+
+		function banner() {
+			timer = setInterval(nextImg, 3000);
+		}
+		oBanner.onmouseenter = function() {
+			clearInterval(timer);
+		}
+		oBanner.onmouseleave = function() {
+			banner();
+		}
+		function sameElement() {
+			move(oPic, {
+					marginLeft: -520 * index
+				}, 300);
+			oSpan[index].className = "on";
+		}
+		function nextImg() {
+			var nowTime = new Date();
+			if(nowTime - time > 300) {
+				time = new Date();
+				oSpan[index].className = "";
+				index++;
+				index %= oSpan.length;
+				sameElement();
+			}
+		}
+		function prevImg() {
+			var nowTime = new Date();
+			time = new Date();
+			if(nowTime - time > 300) {
+				oSpan[index].className = "";
+				index = index<=0?oSpan.length -1:--index;
+				sameElement();
+			}
+		}
+		for(var i = 0; i < oSpan.length; i++) {
+			oSpan[i].i = i;
+			oSpan[i].onclick = function() {
+				oSpan[index].className = "";
+				index = this.i;
+				sameElement();
+			}
+		}  	
+		next.onclick = nextImg;
+		prev.onclick = prevImg;
+    </script>
+</body>
+</html>
