@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>please enter your title</title>
+		<meta charset="utf-8">
+		<meta name="Author" content="潭州学院-阿飞老师">
+		<style type='text/css'>
+			*{ margin:0; padding:0;}
+			#wrap{
+				width:500px;
+				height:360px;
+				margin:100px auto;
+				position:relative;
+				overflow:hidden;
+			}
+			#pic{
+				width:500px;
+				height:360px;
+				position:relative;
+			}
+			#pic img{
+				display:block;
+				position:absolute;
+				top:0;
+				left:0;
+				display:none;
+			}
+			#btn div{
+				width:30px;
+				height:50px;
+				background:#999;
+				cursor:pointer;
+				font-size:20px;
+				color:#fff;
+				font-weight:bold;
+				font-family:'Microsoft yahei';
+				text-align:center;
+				line-height:50px;
+				position:absolute;
+				top:50%;
+				margin-top:-25px;
+			}
+			#left{
+				left:0;
+			}
+			#right{
+				right:0;
+			}
+			#tab{
+				width:92px;
+				height:12px;
+				position:absolute;
+				left:50%;
+				margin-left:-45px;
+				bottom:12px;
+			}
+
+			#tab ul li{
+				width:12px;
+				height:12px;
+				background:#bbb;
+				border-radius:100%;
+				margin:0 3px;
+				float:left;
+				list-style:none;
+				cursor:pointer;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="wrap">
+			<div id="pic">
+				<img src="images/11.jpg" alt="" />
+				<img src="images/12.jpg" alt="" />
+				<img src="images/13.jpg" alt="" />
+				<img src="images/14.jpg" alt="" />
+				<img src="images/15.jpg" alt="" />
+			</div>
+			<div id="btn">
+				<div id="left">&lt;</div>
+				<div id="right">&gt;</div>
+			</div>
+			<div id="tab">
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+
+			var oPic = document.getElementById('pic');
+			var oImg = oPic.getElementsByTagName('img');
+			var oLeft = document.getElementById('left');
+			var oRight = document.getElementById('right');
+			var oTabLi = document.getElementById('tab').getElementsByTagName('li');
+			var n = 0;
+			var timer = setInterval(next,3000);
+
+			oImg[n].style.display = 'block';
+			oTabLi[n].style.background = '#f60';
+			
+			oPic.onmouseenter = function() {
+				clearInterval(timer);
+			}
+			oPic.onmouseleave = function() {
+				timer = setInterval(next,3000);
+			}
+			function move(obj, attr, valFirst, target, val) {
+				var onOff = false;
+				var timer = setInterval(function() {
+					if(valFirst > target) {
+						onOff = true;
+					}				
+					if(onOff) {
+						valFirst -= val;
+						if(valFirst <= target) {
+							valFirst = target;
+							clearInterval(timer);
+						}
+					} else {
+						valFirst += val;
+						if(valFirst >= target) {
+							valFirst = target;
+							clearInterval(timer);
+						}
+					}
+					
+					obj.style[attr] = valFirst + "px";
+				},13);
+			}
+			function next() {
+				var lastN = n;
+				move(oImg[lastN], "left", 0, -500, 10);
+				oTabLi[n].style.background = '#bbb';
+				n++;
+				if ( n >= oImg.length )
+				{
+					n = 0;
+				};
+				oImg[n].style.display = 'block';
+				oImg[n].style.left = '500px';
+				move(oImg[n], "left", 500, 0, 10);
+				oTabLi[n].style.background = '#f60';
+			};
+			function prev() {
+				var lastN = n;
+				move(oImg[lastN], "left", 0, 500, 10);
+				oTabLi[n].style.background = '#bbb';
+				n--;
+				if ( n<0 )
+				{
+					n = oImg.length - 1;
+				}
+				oImg[n].style.display = 'block';
+				oImg[n].style.left = "-500px";
+				move(oImg[n], "left", -500, 0, 10);
+				oTabLi[n].style.background = '#f60';
+			};
+			oRight.onclick = next;
+
+			oLeft.onclick = prev;
+
+			for (var i=0;i<oTabLi.length;i++ )
+			{
+				oTabLi[i].ligoudaner = i;
+
+				oTabLi[i].onclick = function(){
+					oTabLi[n].style.background = '#bbb';
+					oImg[n].style.display = 'none';
+
+					n = this.ligoudaner;
+
+					oImg[n].style.display = 'block';
+					this.style.background = '#f60';
+				};
+			}
+		</script>
+	</body>
+</html>
