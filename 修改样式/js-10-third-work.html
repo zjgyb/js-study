@@ -19,8 +19,9 @@
 		}
 
 		#pic {
-			width: 500%;
+			width: 700%;
 			position: relative;
+			margin-left: -520px;
 		}
 
 		#pic img{
@@ -74,11 +75,13 @@
 <body>
 	<div id="banner">
 		<div id="pic">
+			<img src="images/t5.webp" alt="" width="520" height="280" >
 			<img src="images/t1.webp" alt="" width="520" height="280" >
 			<img src="images/t2.jpg" alt="" width="520" height="280" >
 			<img src="images/t3.jpg" alt="" width="520" height="280" >
 			<img src="images/t4.png" alt="" width="520" height="280" >
 			<img src="images/t5.webp" alt="" width="520" height="280" >
+			<img src="images/t1.webp" alt="" width="520" height="280" >
 		</div>
 		<div id="prev">&lt;</div>
 		<div id="next">&gt;</div>
@@ -95,6 +98,7 @@
     	(function(){
     		var oBanner = document.getElementById("banner");
 	    	var oPic = document.getElementById("pic");
+	    	var oImg = oPic.getElementsByTagName("img");
 			var oSpan = document.getElementById("tab").getElementsByTagName("span");
 			var prev = document.getElementById("prev");
 			var next = document.getElementById("next");
@@ -112,11 +116,20 @@
 			oBanner.onmouseleave = function() {
 				banner();
 			}
-			function sameElement() {
+			function sameElement(now) {
 				move(oPic, {
-						marginLeft: -520 * index
-					}, 300);
-				oSpan[index].className = "on";
+						marginLeft: -520 * (index + 1) + "px"
+					}, 300, function() {
+						if(now == 0) {
+							this.style.marginLeft = "-520" + "px";
+							index = 0;
+						} else if(now == oSpan.length - 1) {
+							this.style.marginLeft = -520 * (oImg.length - 2) + "px";
+							index = oSpan.length - 1;
+						}
+					});
+				oSpan[now].className = "on";
+				
 			}
 			function nextImg() {
 				var nowTime = new Date();
@@ -124,17 +137,25 @@
 					time = new Date();
 					oSpan[index].className = "";
 					index++;
-					index %= oSpan.length;
-					sameElement();
+					index %= oImg.length;
+					var now = index;
+					if(now >= oImg.length - 2) {
+						now = 0;
+					}
+					sameElement(now);
 				}
 			}
 			function prevImg() {
 				var nowTime = new Date();
-				time = new Date();
 				if(nowTime - time > 300) {
+					time = new Date();
 					oSpan[index].className = "";
-					index = index<=0?oSpan.length -1:--index;
-					sameElement();
+					index = index<0?oSpan.length -1:--index;
+					var now = index;
+					if(now == -1) {
+						now = oImg.length - 3;
+					}
+					sameElement(now);
 				}
 			}
 			for(var i = 0; i < oSpan.length; i++) {
