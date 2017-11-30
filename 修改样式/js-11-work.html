@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js-11-work</title>
+	<style type="text/css">
+		#wrap {
+			width: 100px;
+			height: 100px;		
+		}
+
+		.size {
+			background-color: #eee;
+		}
+
+		div.on {
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="on size"></div>
+	<script>
+		var oWrap = document.getElementById("wrap");
+
+		//addClass(oWrap, "on");
+		function addClass(cName, addclass) {
+			if(cName.className == "") {
+				cName.className = addclass;
+			} else {
+				var arrClass = cName.className.split(" ");
+				var arr = [];
+				for(var i = 0; i < arrClass.length; i++) {
+					if(arrClass[i] == addclass) {
+						arr.push(arrClass[i]);
+					}
+				}
+				if(arr[0] != addclass) {
+					cName.className += " " + addclass;
+				}
+			}
+		}
+		removeClass(oWrap, "on");
+		function removeClass(cName, removeclass) {
+			if(cName.className != "") {
+				var arrClass = cName.className.split(" ");
+				var arr = [];
+				for(var i = 0; i < arrClass.length; i++) {
+					if(arrClass[i] != removeclass) {
+						arr.push(arrClass[i]);
+					}
+				}
+				if(arr.length != arrClass.length) {
+					for(var j = 0; j < arr.length; j++) {
+						cName.className = arr[j];
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>
