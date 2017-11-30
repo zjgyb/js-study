@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js-11-work</title>
+	<style type="text/css">
+		#wrap {
+			width: 100px;
+			height: 100px;		
+		}
+
+		.size {
+			background-color: #eee;
+		}
+
+		div.on {
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap"></div>
+	<script>
+		var oWrap = document.getElementById("wrap");
+		removeClass(oWrap, "on");
+		function removeClass(obj, remove) {
+			var removeclass = obj.className.split(" ");
+			for(var i = removeclass.length; i >= 0; i--) {
+				if(removeclass[i] == remove) {
+					removeclass.splice(i, 1);
+				}
+			}
+			obj.className = removeclass.join(" ");
+		}
+	</script>
+</body>
+</html>
