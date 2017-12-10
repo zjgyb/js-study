@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3D旋转</title>
+	<style>
+		* {padding: 0; margin: 0;}
+		ul {
+			list-style: none;
+		}
+		#box {
+			position: relative;
+			width: 600px;
+			height: 300px;
+			margin: 300px auto;
+			perspective: 500px;
+		}
+
+		#box ul li {
+			position: absolute;
+		}
+/*		#box ul li:first-child {
+			transform: translateZ(-100px);
+
+		}
+		#box ul li:last-child {
+			transform: rotateX(90deg) translateZ(100px);
+
+		}*/
+		img {
+			width: 600px;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li><img src="images/1.jpg" alt=""></li>
+			<li><img src="images/2.jpg" alt=""></li>
+			<li><img src="images/3.jpg" alt=""></li>
+			<li><img src="images/4.jpg" alt=""></li>
+			<li><img src="images/5.jpg" alt=""></li>
+			<li><img src="images/6.jpg" alt=""></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var oBox = document.getElementById("box");
+		var oLi = oBox.getElementsByTagName("li");
+		for(var i = 0; i < oLi.length; i++) {
+			var num = 360 / (i + 1) + 'deg';
+			console.log(num)
+			oLi[i].style.transform = "rotateY(" + num + ") translateZ(100px)";
+		}
+	</script>
+</body>
+</html>
