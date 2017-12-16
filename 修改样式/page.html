@@ -115,11 +115,13 @@
 			}
 
 			function sameDisplay(index) {
+
 				if(index <= pageInformation.firChangeNum - 1) {
 					for(var j = 0; j < pageInformation.pageNumber; j++) {
 						oLi[j].innerHTML = j + 1;
 					}
 				}
+
 				else if(index > pageInformation.firChangeNum - 1 && pageInformation.pageAll - index > pageInformation.pageNumber - pageInformation.firChangeNum + 1){
 					var oIndex = index;
 						for(var j = 0; j < pageInformation.pageNumber; j++) {
@@ -127,6 +129,7 @@
 							oIndex++;
 						}
 				}
+
 				for(var j = 0; j < pageInformation.pageNumber; j++) {
 					if(oLi[j].innerHTML == index) {
 						oLi[j].className = 'active';
