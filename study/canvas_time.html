@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #clock {
+            margin-top: 200px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="clock" width="500" height="500"></canvas>
+    <script>
+        let clock = document.querySelector('#clock');
+        let ctx = clock.getContext('2d');
+        let r = ctx.canvas.width / 2;
+        let rem = ctx.canvas.width / 200;
+
+        function drawclock() {
+            ctx.beginPath();
+            ctx.translate(r, r);
+            ctx.lineWidth = 10 * rem;
+            ctx.arc(0, 0, r - 5 * rem, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            let font = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
+            let rad = 2 * Math.PI / 12;
+            let fontR = r - 30 * rem;
+            ctx.font = 18 * rem + "px Arial"
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            font.forEach((num, i) => {
+                let x = fontR * Math.cos(i * rad);
+                let y = fontR * Math.sin(i * rad);
+                ctx.fillText(num, x, y);
+            });
+    
+            // 画外围小圆
+            let radForSixty = 2 * Math.PI / 60;
+            let smallRad = r - 15 * rem;
+            for (let i = 0; i < 60; i++) {
+                ctx.beginPath();
+                let x = smallRad * Math.cos(i * radForSixty);
+                let y = smallRad * Math.sin(i * radForSixty);
+                if(i % 5 === 0) {
+                    ctx.fillStyle = '#000';
+                    ctx.arc(x, y, 2 * rem, 0, 2 * Math.PI);
+                } else {
+                    ctx.fillStyle = '#eee';
+                    ctx.arc(x, y, 2 * rem, 0, 2 * Math.PI);
+                }        
+                
+                ctx.fill();
+            }
+
+        };
+
+        // 画时针
+        function drawHour(hour, min) {
+            ctx.save();
+            let hourRad = hour * Math.PI / 6;
+            let minRad = min * Math.PI / 360;
+            ctx.rotate(hourRad + minRad);
+            let len = r / 2 - 20 * rem;
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(0, 10 * rem);
+            ctx.lineTo(0, -len);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawMinute(min) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.rotate(min * 2 * Math.PI / 60);
+            ctx.lineWidth = 5 * rem;
+            let len = r - 45 * rem;
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(0, 10 * rem);
+            ctx.lineTo(0, -len);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawSecond(second) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.rotate(second * 2 * Math.PI / 60);
+            ctx.fillStyle = 'red';
+            let len = r - 20 * rem;
+            ctx.lineCap = "round";
+            ctx.moveTo(-2, 10 * rem);
+            ctx.lineTo(-1, -len);
+            ctx.lineTo(1, -len);
+            ctx.lineTo(2, 10 * rem);
+            ctx.fill();
+
+            // 画中心小圆
+            ctx.beginPath();
+            ctx.fillStyle = '#fff';
+            ctx.arc(0, 0, 5 * rem, 0, 2 * Math.PI);
+            ctx.fill();
+             ctx.restore();
+        }
+        // drawclock();
+
+        setInterval(() => {
+            ctx.save();
+            // ctx.translate(-r, -r);
+            ctx.clearRect(0, 0, 2* r, 2 * r);
+            // ctx.translate(r, r);
+            drawclock();
+
+            let date = new Date();
+            let hour = date.getHours();
+            if(hour - 12 > 0) {
+                hour -= 12;
+            }
+            let minute = date.getMinutes();
+            let seconds = date.getSeconds();
+            // console.log(hour,minute,seconds);
+            
+            drawHour(hour, minute);
+            drawMinute(minute);
+            drawSecond(seconds);
+            ctx.restore();
+            // console.log(date);
+            
+        }, 1000);
+    </script>
+</body>
+</html>
