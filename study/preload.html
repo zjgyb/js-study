@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .box {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0 10px;
+            height: 50px;
+            line-height: 50px;
+            margin-right: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+
+        .btn:hover {
+            background-color: #eee;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #eee;
+        }
+
+        .progress {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725083246&di=cba89594aafe9baba17e76b9c38b2d88&imgtype=0&src=http%3A%2F%2Fstatic01.coloros.com%2Fbbs%2Fdata%2Fattachment%2Fforum%2F201503%2F11%2F101410emx4hnsuv5vhvqub.jpg"
+            alt="image" id="img" width="1200" height="600">
+        <p>
+            <a href="javascript:;" class="btn" data-attr="prev">上一页</a>
+            <a href="javascript:;" class="btn" data-attr="next">下一页</a>
+        </p>
+    </div>
+
+    <div class="loading">
+        <div class="progress">0%</div>
+    </div>
+    <script src="js/preload.js"></script>
+    <script>
+        let imgs = [
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725083246&di=cba89594aafe9baba17e76b9c38b2d88&imgtype=0&src=http%3A%2F%2Fstatic01.coloros.com%2Fbbs%2Fdata%2Fattachment%2Fforum%2F201503%2F11%2F101410emx4hnsuv5vhvqub.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725051480&di=8f9ebf087a6c8123a3cf75e51c9a8e68&imgtype=0&src=http%3A%2F%2Fbbsfiles.vivo.com.cn%2Fvivobbs%2Fattachment%2Fforum%2F201711%2F06%2F110219qr310r1qyudj4i48.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725114789&di=96e33cb9e24e866e23b03c09d8c58676&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fwallpaper%2F1207%2F06%2Fc0%2F12242782_1341545013503.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725150161&di=8a291d9844085932d6714b194618a3da&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F838ba61ea8d3fd1fb0502abc354e251f94ca5fdf.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725214639&di=574aef05240ab1f1ee20e8f89996a464&imgtype=0&src=http%3A%2F%2Fp1.gexing.com%2Fshaitu%2F20121113%2F1351%2F50a1dfe8997ae.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725243231&di=c2b5305b9ab951d4acb1d2ba274c9e3f&imgtype=0&src=http%3A%2F%2Fold.bz55.com%2Fuploads%2Fallimg%2F140325%2F1-140325144535.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725263645&di=35bf4c9b3b960d3660ef0a0f0e5a94c2&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F6609c93d70cf3bc70bd5d057d500baa1cc112ab7.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725346340&di=45a0ed91032f423e7115444998771a5c&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D4143781355%2C3142303347%26fm%3D214%26gp%3D0.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535725393731&di=ee93889962e46fc353e3f56d8b625851&imgtype=0&src=http%3A%2F%2Fimage2.xyzs.com%2Fupload%2F8f%2Fe0%2F416%2F20150506%2F143085705195806_0.jpg',
+        ];
+        const lens = imgs.length;
+        let progress = document.querySelector('.progress');
+
+        new Preload(imgs, {
+            each: function (count) {
+                progress.innerHTML = Math.round(count / lens * 100) + '%';
+            },
+            all: function () {
+                progress.innerHTML = '100%';
+                document.querySelector('.loading').style.display = 'none';
+            }
+        });
+
+        // function preloadImg(imgs) {
+        //     let progress = document.querySelector('.progress');
+        //     let len = imgs.length;
+        //     let count = 0;
+        //     for (let i = 0; i < len; i++) {
+        //         let img = new Image();
+
+        //         img.onload = function () {
+        //             count++;
+
+        //             if (count === len - 1) {
+        //                 progress.innerHTML = '100%';
+        //                 document.querySelector('.loading').style.display = 'none';
+        //             }
+
+        //         }
+
+        //         img.onerror = function () {
+        //             progress.innerHTML = Math.round(count / len * 100) + '%';
+        //             if (count === len - 1) {
+        //                 progress.innerHTML = '100%';
+        //                 document.querySelector('.loading').style.display = 'none';
+        //             }
+        //         }
+
+        //         img.src = imgs[i];
+
+        //     }
+        // }
+        // preloadImg(imgs);
+
+        let btn = document.querySelectorAll('.btn');
+        let img = document.getElementById('img');
+        let index = 0;
+        let len = imgs.length;
+        for (let i = 0; i < btn.length; i++) {
+            btn[i].addEventListener('click', function () {
+                let dataAttr = this.getAttribute('data-attr');
+                if ('prev' === dataAttr) { // 上一页
+                    index = Math.max(0, --index);
+                    img.src = imgs[index];
+                } else if ('next' === dataAttr) { // 下一页
+                    index = Math.min(len - 1, ++index);
+                    img.src = imgs[index];
+                }
+
+            });
+
+        }
+
+    </script>
+</body>
+
+</html>
