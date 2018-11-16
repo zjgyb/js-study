@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div>
+        <h2>
+            <form>
+                <input type="text" placeholder="请输入你的用户名" name="username" id="username">
+                <button id="btn" type="button">提交</button>
+            </form>
+        </h2>
+    </div>
+    <script>
+        let btn = document.getElementById('btn');
+        btn.addEventListener('click', () => {
+            let username = document.getElementById('username').value;
+            console.log(username);
+
+            fetch("/api/post/username", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username
+                    })
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if(data.status === 1) {
+                        window.location.href = '/'
+                    } else {
+                        alert('发生了错误')
+                    }
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+        })
+    </script>
+</body>
+</html>

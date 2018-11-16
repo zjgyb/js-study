@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Websockets</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font: 13px Helvetica, Arial;
+        }
+
+        form {
+            background: #000;
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+
+        form button {
+            width: 9%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 756px) {
+            form input {
+                width: 85%;
+            }
+
+            form button {
+                width: 14%;
+            }
+        }
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #messages li {
+            padding: 5px 10px;
+        }
+
+        #messages li:nth-child(odd) {
+            background: #eee;
+        }
+
+        .name {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        .username {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 45px;
+            min-width: 200px;
+            padding: 0 10px;
+            transform: translateX(-50%) translateY(-50%);
+        }
+    </style>
+    <script>
+        // console.log(sessionStorage.getItem('username'));
+        // if(!sessionStorage.getItem('username')) {
+        //     fetch('./', {
+        //        method: 'POST',
+        //         body: JSON.stringify({
+        //             username: true
+        //         })
+        //     }).then(response => response.json()).then(response => {
+        //         console.log('请求成功');
+
+        //     });
+        // }
+
+    </script>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <form>
+        <input id="m" type="text"/>
+        <button type="button" id="btn">Send</button>
+    </form>
+    <div class="name">
+        <input type="text" id="username" class="username" placeholder="请输入你的用户名">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <script>
+        let socket = io();
+        let btn = document.getElementById('btn');
+        let message = document.getElementById('m');
+        let username = document.getElementById('username');
+        let name = '';
+        btn.addEventListener('click', () => {
+            socket.emit('chat message', message.value);
+            message.value = '';
+        });
+
+        username.addEventListener('keypress', (event) => {
+            if(event.keyCode === 13) {
+                name = username.value;
+                socket.emit('typing', username.value);
+                let con = document.querySelector('.name');
+                con.style.display = 'none';
+            }
+        });
+
+        m.addEventListener('keypress', (event) => {
+
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                socket.emit('chat message', message.value);
+                message.value = '';
+            }
+
+        });
+
+        socket.on('chat message', data => {
+            let messages = document.getElementById('messages');
+            messages.innerHTML += `<li>${data.datas}说：${data.data}</li>`;
+        });
+
+        socket.on('typing', data => {
+            alert(data+ '上线了');
+        })
+    </script>
+</body>
+</html>
