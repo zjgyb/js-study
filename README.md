@@ -1,3 +1,3 @@
 # js-study
 
-I study front-end again by tanzhou education organization.
+学习了那么久，我认为我需要总结一下我学过的知识，这是我总结知识点的库。
